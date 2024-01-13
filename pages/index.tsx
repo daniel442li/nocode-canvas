@@ -4,11 +4,13 @@ import {WorkflowCard} from '../components/workflow';
 import { DndContext } from '@dnd-kit/core';
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
-import {WorkflowBoard} from '../components/workflowBoard';
+
 
 const Home: NextPage = () => {
   return (
-    <WorkflowBoard />
+    <div>
+      {/* Your content here */}
+    </div>
   );
 };
 

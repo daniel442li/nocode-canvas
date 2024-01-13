@@ -22,9 +22,9 @@ const generateId = () => {
 
 export const WorkflowBoard = () => {
 
-    const [columns, setColumns] = useState([{id: "111", title:"Your Workflow"}]);
+    const [columns, setColumns] = useState([{id: "111", title:"Your Workflow Column"}]);
 
-    const [workflows, setWorkflows] = useState([{id:"1",columnId:"111",title:"Your Workflows"}]);
+    const [workflows, setWorkflows] = useState([{id:"1",columnId:"111",title:"Your first workflow"}]);
 
     const [activeWorkflow, setActiveWorkflow] = useState(null);
 
