@@ -1,0 +1,71 @@
+import React, { useState } from "react";
+import { DndContext } from "@dnd-kit/core";
+import { useDroppable } from "@dnd-kit/core";
+import { useDraggable } from "@dnd-kit/core";
+import { SortableContext } from "@dnd-kit/sortable";
+
+// daniel does droppable
+function Droppable(props) {
+  const { isOver, setNodeRef } = useDroppable({
+    id: "droppable",
+  });
+  const style = {
+    color: isOver ? "green" : "black", // Change text color when an item is over the droppable area
+    border: "2px dashed gray", // Dashed border for the droppable area
+    padding: "20px", // Padding inside the box
+    margin: "10px", // Margin outside the box
+    minHeight: "300px", // Minimum height to ensure it looks like a box
+    display: "flex", // Use flexbox for aligning children
+    alignItems: "center", // Center children vertically
+    justifyContent: "center", // Center children horizontally
+    backgroundColor: isOver ? "#f0f0f0" : "white", // Change background color when an item is over
+  };
+
+  return (
+    <div ref={setNodeRef} style={style}>
+      {props.children}
+    </div>
+  );
+}
+
+//ethan does draggable
+function Draggable(props) {
+  const { attributes, listeners, setNodeRef, transform } = useDraggable({
+    id: "draggable",
+  });
+  const style = transform
+    ? {
+        transform: `translate3d(${transform.x}px, ${transform.y}px, 0)`,
+      }
+    : undefined;
+
+  return (
+    <button ref={setNodeRef} style={style} {...listeners} {...attributes}>
+      {props.children}
+    </button>
+  );
+}
+
+const Home: NextPage = () => {
+  const [isDropped, setIsDropped] = useState(false);
+  const draggableMarkup = (
+    <Draggable>Drag me</Draggable>
+  );
+
+  return (
+    <DndContext onDragEnd={handleDragEnd}>
+      {!isDropped ? draggableMarkup : null}
+      <Droppable>
+        {isDropped ? draggableMarkup : 'Drop here'}
+      </Droppable>
+    </DndContext>
+  );
+
+  function handleDragEnd(event) {
+    if (event.over && event.over.id === 'droppable') {
+      setIsDropped(true);
+    }
+  }
+};
+
+export default Home;
